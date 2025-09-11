@@ -1,4 +1,8 @@
 package com.pixelservices.nexus.client.service;
 
-public class ServiceRepository {
+import com.pixelservices.nexus.client.exception.NexusClientException;
+
+public interface ServiceRepository {
+    Service[] getServices() throws NexusClientException;
+    Service getService(String serviceId) throws NexusClientException;
 }

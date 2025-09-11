@@ -87,6 +87,30 @@
           <release>17</release>
         </configuration>
       </plugin>
+      <plugin>
+          <groupId>org.openapitools</groupId>
+          <artifactId>openapi-generator-maven-plugin</artifactId>
+          <version>7.15.0</version>
+          <executions>
+              <execution>
+                  <id>generate-models</id>
+                  <goals>
+                      <goal>generate</goal>
+                  </goals>
+                  <configuration>
+                      <inputSpec>http://100.105.172.149:8080/q/openapi</inputSpec>
+                      <generatorName>java</generatorName>
+                      <modelPackage>.....</modelPackage>
+                      <apiPackage>.......</apiPackage>
+                      <library>okhttp-gson</library>
+                      <generateApis>false</generateApis>
+                      <generateModels>true</generateModels>
+                      <generateSupportingFiles>false</generateSupportingFiles>
+                      <generateAliasAsModel>true</generateAliasAsModel>
+                  </configuration>
+              </execution>
+          </executions>
+      </plugin>
     </plugins>
   </build>
 
