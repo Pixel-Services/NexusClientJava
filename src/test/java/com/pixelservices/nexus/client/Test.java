@@ -8,6 +8,7 @@ public class Test {
         try {
             NexusClient client = NexusClient.withToken("your_token_here")
                     .withVendorId("your_vendor_id_here")
+                    .withBaseUrl("https://nexus.pixel-services.com")
                     .build();
 
             // Example usage with proper exception handling
