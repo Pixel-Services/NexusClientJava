@@ -18,7 +18,7 @@ public class NexusClientBuilder {
     private final String token;
     private String vendorId;
 
-    private String baseUrl;
+    private String baseUrl = "https://nexus.pixel-services.com";
     private int verifyAttempts = 5;
     private Duration verifyDelay = Duration.ofSeconds(30);
     private boolean enableLogging = true;
