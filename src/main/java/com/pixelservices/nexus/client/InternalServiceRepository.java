@@ -2,7 +2,6 @@ package com.pixelservices.nexus.client;
 
 import com.pixelservices.nexus.client.exception.NexusClientException;
 import com.pixelservices.nexus.client.http.HttpClient;
-import com.pixelservices.nexus.client.repository.BaseRepository;
 import com.pixelservices.nexus.client.service.Service;
 import com.pixelservices.nexus.client.service.ServiceData;
 import com.pixelservices.nexus.client.service.ServiceRepository;
