@@ -7,7 +7,7 @@ import com.pixelservices.nexus.client.service.Service;
 import com.pixelservices.nexus.client.service.ServiceData;
 import com.pixelservices.nexus.client.service.ServiceRepository;
 
-class InternalServiceRepository extends BaseRepository implements ServiceRepository {
+class InternalServiceRepository extends ServiceRepository {
     
     public InternalServiceRepository(HttpClient httpClient) {
         super(httpClient);

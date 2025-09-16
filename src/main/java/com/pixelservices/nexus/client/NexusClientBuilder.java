@@ -10,6 +10,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.time.Duration;
 
 public class NexusClientBuilder {
@@ -69,16 +70,13 @@ public class NexusClientBuilder {
      * @throws NexusClientAuthenticationException if verification fails
      */
     private void verifyConnection() {
-        int attempts = verifyAttempts;
+        int attempts = verifyAttempts-1;
         while (attempts-- > 0) {
             if (performConnectionTest()) {
                 logger.info("Connection verified successfully.");
                 return;
             } else {
                 logger.warn("Trying to verify connection again in " + verifyDelay.getSeconds() + " seconds... (" + (attempts + 1) + " attempts left)");
-            }
-            if (attempts == 0) {
-                throw new NexusClientAuthenticationException("Failed to verify connection after multiple attempts.");
             }
             try {
                 Thread.sleep(verifyDelay.toMillis());
@@ -87,6 +85,7 @@ public class NexusClientBuilder {
                 throw new NexusClientException("Verification interrupted", e);
             }
         }
+        throw new NexusClientAuthenticationException("Failed to verify connection after " + verifyAttempts + " attempts.");
     }
 
     /**
@@ -108,9 +107,14 @@ public class NexusClientBuilder {
                 logger.error("Unable to verify connection — Authentication failed: Invalid token or vendor ID.");
                 return false;
             } else {
+                logger.debug("Connection test successful with status code: " + statusCode);
                 return true;
             }
-        } catch (IOException e) {
+        } catch (UnknownHostException e) {
+            logger.error("Unable to verify connection — The host could not be resolved: " + e.getMessage());
+            return false;
+        }
+        catch (IOException e) {
             logger.error("Unable to verify connection — An unexpected error occurred while verifying the connection.", e);
             return false;
         }

@@ -3,12 +3,11 @@ package com.pixelservices.nexus.client;
 import com.pixelservices.nexus.client.data.EMail;
 import com.pixelservices.nexus.client.exception.NexusClientException;
 import com.pixelservices.nexus.client.http.HttpClient;
-import com.pixelservices.nexus.client.repository.BaseRepository;
 import com.pixelservices.nexus.client.user.User;
 import com.pixelservices.nexus.client.user.UserData;
 import com.pixelservices.nexus.client.user.UserRepository;
 
-class InternalUserRepository extends BaseRepository implements UserRepository {
+class InternalUserRepository extends UserRepository {
     
     public InternalUserRepository(HttpClient httpClient) {
         super(httpClient);
@@ -41,9 +40,5 @@ class InternalUserRepository extends BaseRepository implements UserRepository {
             throw new IllegalArgumentException("Email cannot be null");
         }
         return post("/api/nexus/users/" + userId + "/send-email", email, Boolean.class);
-    }
-
-    private User constructUser(UserData userData) {
-        return new User(userData, this);
     }
 }

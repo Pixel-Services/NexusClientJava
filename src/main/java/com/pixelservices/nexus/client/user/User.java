@@ -8,7 +8,7 @@ import lombok.experimental.SuperBuilder;
 public class User extends UserData {
     private final UserRepository userRepository;
 
-    public User(UserData userData, UserRepository userRepository) {
+    User(UserData userData, UserRepository userRepository) {
         super(userData.getId(), userData.getUsername(), userData.getEmail(), userData.getFirstName(), userData.getLastName(), userData.getAvatar());
         this.userRepository = userRepository;
     }
