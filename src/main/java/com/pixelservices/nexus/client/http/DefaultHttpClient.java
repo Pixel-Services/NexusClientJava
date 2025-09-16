@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pixelservices.logger.Logger;
 import com.pixelservices.logger.LoggerFactory;
 import com.pixelservices.nexus.client.exception.NexusClientException;
-import com.pixelservices.nexus.client.monitoring.ClientMetrics;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -28,7 +27,6 @@ public class DefaultHttpClient implements HttpClient {
     private final String vendorId;
     private final CloseableHttpClient httpClient;
     private final ObjectMapper objectMapper;
-    private final ClientMetrics metrics;
 
     public DefaultHttpClient(String baseUrl, String token, String vendorId) {
         this.baseUrl = baseUrl;
@@ -36,7 +34,6 @@ public class DefaultHttpClient implements HttpClient {
         this.vendorId = vendorId;
         this.httpClient = HttpClients.createDefault();
         this.objectMapper = new ObjectMapper();
-        this.metrics = new ClientMetrics();
     }
 
     @Override
@@ -72,17 +69,14 @@ public class DefaultHttpClient implements HttpClient {
             ApiResponse<T> apiResponse = processResponse(response, responseType);
             
             if (apiResponse.isSuccess()) {
-                metrics.recordSuccess(responseTime);
                 logger.debug("Request to " + request.getURI() + " completed successfully in " + responseTime + "ms");
             } else {
-                metrics.recordFailure(responseTime);
                 logger.warn("Request to " + request.getURI() + " failed with status " + apiResponse.getStatusCode() + " in " + responseTime + "ms");
             }
             
             return apiResponse;
         } catch (IOException e) {
             long responseTime = System.currentTimeMillis() - startTime;
-            metrics.recordFailure(responseTime);
             logger.error("Failed to execute HTTP request to " + request.getURI() + " in " + responseTime + "ms", e);
             throw new NexusClientException("HTTP request failed", e);
         }
@@ -147,21 +141,12 @@ public class DefaultHttpClient implements HttpClient {
     }
 
     /**
-     * Gets the client metrics.
-     *
-     * @return the client metrics
-     */
-    public ClientMetrics getMetrics() {
-        return metrics;
-    }
-
-    /**
      * Closes the underlying HTTP client and releases resources.
      */
     public void close() {
         try {
             httpClient.close();
-            logger.info("HTTP client closed. Final metrics: " + metrics);
+            logger.info("HTTP client closed.");
         } catch (IOException e) {
             logger.error("Failed to close HTTP client", e);
         }

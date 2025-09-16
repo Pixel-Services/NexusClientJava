@@ -2,7 +2,6 @@ package com.pixelservices.nexus.client;
 
 import com.pixelservices.nexus.client.http.DefaultHttpClient;
 import com.pixelservices.nexus.client.http.HttpClient;
-import com.pixelservices.nexus.client.monitoring.ClientMetrics;
 import com.pixelservices.nexus.client.user.UserRepository;
 import com.pixelservices.nexus.client.service.ServiceRepository;
 import org.jetbrains.annotations.NotNull;
@@ -34,18 +33,6 @@ public class NexusClient implements AutoCloseable {
      */
     public HttpClient getHttpClient() {
         return httpClient;
-    }
-
-    /**
-     * Gets the client metrics for monitoring and debugging.
-     *
-     * @return the client metrics
-     */
-    public ClientMetrics getMetrics() {
-        if (httpClient instanceof DefaultHttpClient) {
-            return ((DefaultHttpClient) httpClient).getMetrics();
-        }
-        return null;
     }
 
     /**
