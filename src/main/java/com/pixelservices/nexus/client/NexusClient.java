@@ -2,8 +2,8 @@ package com.pixelservices.nexus.client;
 
 import com.pixelservices.nexus.client.http.DefaultHttpClient;
 import com.pixelservices.nexus.client.http.HttpClient;
-import com.pixelservices.nexus.client.user.UserRepository;
 import com.pixelservices.nexus.client.service.ServiceRepository;
+import com.pixelservices.nexus.client.user.UserRepository;
 import org.jetbrains.annotations.NotNull;
 
 public class NexusClient implements AutoCloseable {

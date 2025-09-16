@@ -3,8 +3,6 @@ package com.pixelservices.nexus.client.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data

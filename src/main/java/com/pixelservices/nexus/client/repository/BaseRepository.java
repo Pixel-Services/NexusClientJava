@@ -1,10 +1,10 @@
 package com.pixelservices.nexus.client.repository;
 
-import com.pixelservices.nexus.client.http.ApiResponse;
-import com.pixelservices.nexus.client.http.HttpClient;
-import com.pixelservices.nexus.client.exception.NexusClientException;
 import com.pixelservices.logger.Logger;
 import com.pixelservices.logger.LoggerFactory;
+import com.pixelservices.nexus.client.exception.NexusClientException;
+import com.pixelservices.nexus.client.http.ApiResponse;
+import com.pixelservices.nexus.client.http.HttpClient;
 
 /**
  * Base repository class that provides common functionality for all repositories.
