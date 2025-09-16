@@ -1,24 +1,34 @@
 package com.pixelservices.nexus.client.user;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@RequiredArgsConstructor
 @SuperBuilder
 public class UserData {
-    @NonNull
     private final String id;
-    @NonNull
     private final String username;
-    @NonNull
     private final String email;
-    @NonNull
     private final String firstName;
-    @NonNull
     private final String lastName;
-    @NonNull
     private final String avatar;
+
+    @JsonCreator
+    public UserData(
+            @JsonProperty("id") String id,
+            @JsonProperty("username") String username,
+            @JsonProperty("email") String email,
+            @JsonProperty("firstName") String firstName,
+            @JsonProperty("lastName") String lastName,
+            @JsonProperty("avatar") String avatar
+    ) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.avatar = avatar;
+    }
 }

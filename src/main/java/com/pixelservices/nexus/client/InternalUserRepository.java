@@ -16,7 +16,7 @@ class InternalUserRepository extends BaseRepository implements UserRepository {
 
     @Override
     public User[] getUsers() throws NexusClientException {
-        UserData[] usersData = get("/users", UserData[].class);
+        UserData[] usersData = get("/api/nexus/users", UserData[].class);
         User[] users = new User[usersData.length];
         for (int i = 0; i < usersData.length; i++) {
             users[i] = constructUser(usersData[i]);
@@ -29,7 +29,7 @@ class InternalUserRepository extends BaseRepository implements UserRepository {
         if (userId == null || userId.trim().isEmpty()) {
             throw new IllegalArgumentException("User ID cannot be null or empty");
         }
-        return constructUser(get("/users/" + userId, UserData.class));
+        return constructUser(get("/api/nexus/users/" + userId, UserData.class));
     }
 
     @Override
@@ -40,7 +40,7 @@ class InternalUserRepository extends BaseRepository implements UserRepository {
         if (email == null) {
             throw new IllegalArgumentException("Email cannot be null");
         }
-        return post("/users/" + userId + "/send-email", email, Boolean.class);
+        return post("/api/nexus/users/" + userId + "/send-email", email, Boolean.class);
     }
 
     private User constructUser(UserData userData) {

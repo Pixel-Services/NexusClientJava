@@ -15,7 +15,7 @@ class InternalServiceRepository extends BaseRepository implements ServiceReposit
 
     @Override
     public Service[] getServices() throws NexusClientException {
-        ServiceData[] servicesData = get("/services", ServiceData[].class);
+        ServiceData[] servicesData = get("/api/vendor/services", ServiceData[].class);
         Service[] services = new Service[servicesData.length];
         for (int i = 0; i < servicesData.length; i++) {
             services[i] = constructService(servicesData[i]);
@@ -28,7 +28,7 @@ class InternalServiceRepository extends BaseRepository implements ServiceReposit
         if (serviceId == null || serviceId.trim().isEmpty()) {
             throw new IllegalArgumentException("Service ID cannot be null or empty");
         }
-        return constructService(get("/services/" + serviceId, ServiceData.class));
+        return constructService(get("/api/vendor/services/" + serviceId, ServiceData.class));
     }
 
     private Service constructService(ServiceData serviceData) {

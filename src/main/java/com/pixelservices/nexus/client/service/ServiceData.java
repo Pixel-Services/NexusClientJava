@@ -1,16 +1,24 @@
 package com.pixelservices.nexus.client.service;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@RequiredArgsConstructor
 @SuperBuilder
 public class ServiceData {
-    @NonNull
     private final String id;
-    @NonNull
     private final String name;
+
+    @JsonCreator
+    public ServiceData(
+            @JsonProperty("id") String id,
+            @JsonProperty("name") String name
+    ) {
+        this.id = id;
+        this.name = name;
+    }
 }

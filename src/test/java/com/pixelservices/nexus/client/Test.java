@@ -1,26 +1,25 @@
 package com.pixelservices.nexus.client;
 
-import com.pixelservices.nexus.client.data.EMail;
 import com.pixelservices.nexus.client.exception.NexusClientException;
+import com.pixelservices.nexus.client.user.UserRepository;
+
+import java.util.Arrays;
 
 public class Test {
     public static void main(String[] args) {
         try {
-            NexusClient client = NexusClient.withToken("your_token_here")
-                    .withVendorId("your_vendor_id_here")
-                    .withBaseUrl("https://nexus.pixel-services.com")
+            NexusClient client = NexusClient
+                    .withToken("vendorsecret123?")
+                    .withVendorId("vendor123")
+                    .withBaseUrl("http://localhost:8080")
                     .build();
 
-            // Example usage with proper exception handling
-            client.userRepository.getUser("some_user_id").sendEmail(new EMail("Subject", "Body"));
+            UserRepository ur = client.userRepository;
+
+            System.out.println(ur.getUser("b699523a-d185-432a-a58e-2ddbebecc8e3"));
             
             // Example of getting all users
-            var users = client.userRepository.getUsers();
-            System.out.println("Found " + users.length + " users");
-            
-            // Example of getting all services
-            var services = client.serviceRepository.getServices();
-            System.out.println("Found " + services.length + " services");
+            System.out.println(Arrays.toString(ur.getUsers()));
             
             // Close the client when done
             client.close();
